@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Paper } from "@material-ui/core";
+import { useStyles } from "./App.Styles";
+import Account from "./Pages/Account";
 function App() {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Paper className={classes.header} elevation={4}>
+        <Link to={"/account"} className={classes.links}>
+          Register/Login
+        </Link>
+        <Link to={"/social/feed"} className={classes.links}>
+          NewsFeed
+        </Link>
+      </Paper>
+      <Switch>
+        <Route path={"/account"} component={Account} />
+        {/* <Route path={'/social/feed'} component={}/> */}
+        <Route
+          path={"*"}
+          render={() => (
+            <div style={{ textAlign: "center" }}>Page not Found</div>
+          )}
+        />
+      </Switch>
+    </Router>
   );
 }
 
